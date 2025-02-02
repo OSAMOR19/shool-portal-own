@@ -1,78 +1,96 @@
-import Link from "next/link"
-import { Home, BookOpen, Calendar, Settings, LogOut, HelpCircle } from "lucide-react"
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { 
+  Home, 
+  BookOpen, 
+  Calendar, 
+  Settings, 
+  LogOut, 
+  HelpCircle, 
+  Vote, 
+  CreditCard, 
+  BadgeCheck, 
+  Bell 
+} from "lucide-react";
+import img1 from "@/components/images/graceland.svg";
+import img2 from "@/components/images/dreamlogowhite.svg";
 
 export function Sidebar() {
-  return (
-    <div className="flex flex-col w-64 bg-white border-r">
-      <div className="flex items-center justify-center h-16 border-b">
-        <span className="text-2xl font-semibold">School Portal</span>
-      </div>
-      <nav className="flex-1 overflow-y-auto">
-        <ul className="p-4 space-y-2">
-          <li>
-            <Link href="/dashboard" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <Home className="w-5 h-5 mr-3" />
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/courses" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <BookOpen className="w-5 h-5 mr-3" />
-              Calendar
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/schedule" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <Calendar className="w-5 h-5 mr-3" />
-              Report
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/schedule" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <Calendar className="w-5 h-5 mr-3" />
-              Announcement
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/schedule" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <Calendar className="w-5 h-5 mr-3" />
-              Voting
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/schedule" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <Calendar className="w-5 h-5 mr-3" />
-              DreamPass
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/schedule" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <Calendar className="w-5 h-5 mr-3" />
-              DreamPay
-            </Link>
-          </li>
+  const mainMenuItems = [
+    { href: "/dashboard", icon: Home, label: "Dashboard" },
+    { href: "/dashboard/calendar", icon: Calendar, label: "Calendar" },
+    { href: "/dashboard/report", icon: BookOpen, label: "Report" },
+    { href: "/dashboard/announcement", icon: Bell, label: "Announcement" },
+    { href: "/dashboard/voting", icon: Vote, label: "Voting" },
+    { href: "/dashboard/dreampass", icon: BadgeCheck, label: "Dreampass" },
+    { href: "/dashboard/dreampay", icon: CreditCard, label: "Dreampay" },
+  ];
 
-          <li>
-            <Link href="/dashboard/schedule" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <HelpCircle className="w-5 h-5 mr-3" />
-              Help
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/settings" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <Settings className="w-5 h-5 mr-3" />
-              Settings
-            </Link>
-          </li>
-          <li>
-            <Link href="/dashboard/settings" className="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
-              <LogOut className="w-5 h-5 mr-3" />
-              Logout
-            </Link>
-          </li>
+  const bottomMenuItems = [
+    { href: "/dashboard/help", icon: HelpCircle, label: "Help" },
+    { href: "/dashboard/settings", icon: Settings, label: "Settings" },
+    { href: "/dashboard/logout", icon: LogOut, label: "Logout" },
+  ];
+
+  return (
+    <div className="flex flex-col w-64 bg-[#206A71] min-h-screen">
+      <div className="p-4">
+        <Image 
+          src={img1} 
+          alt="Graceland High School" 
+          width={150} 
+          height={40} 
+          className="mb-6"
+          priority 
+        />
+        <div className="text-sm text-gray-300 mb-0">Menu</div>
+      </div>
+
+      <nav className="flex-1 flex flex-col justify-between">
+        <ul className="px-2 space-y-1">
+          {mainMenuItems.map((item) => (
+            <li key={item.label}>
+              <Link
+                href={item.href}
+                className="flex items-center px-4 py-2.5 text-gray-300 hover:bg-[#175358] hover:text-white rounded-lg transition-colors group"
+              >
+                <item.icon className="w-5 h-5 mr-3 opacity-75" />
+                <span className="text-sm font-medium">{item.label}</span>
+              </Link>
+            </li>
+          ))}
         </ul>
+
+        <div className="mt-auto">
+          <ul className="px-2 space-y-1">
+            {bottomMenuItems.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  className="flex items-center px-4 py-2.5 text-gray-300 hover:bg-[#175358] hover:text-white rounded-lg transition-colors group"
+                >
+                  <item.icon className="w-5 h-5 mr-3 opacity-75" />
+                  <span className="text-sm font-medium">{item.label}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="p-4 mt-6 border-t border-[#175358]">
+            <div className="text-gray-300 text-sm mb-2">Powered by</div>
+            <Image 
+              src={img2} 
+              alt="DreamBooks" 
+              width={130} 
+              height={40} 
+              priority 
+            />
+          </div>
+        </div>
       </nav>
     </div>
-  )
+  );
 }
 
+export default Sidebar;
