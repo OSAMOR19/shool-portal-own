@@ -114,7 +114,7 @@ export default function LoginForm() {
             </button>
 
             <p className="text-center text-[13px] text-gray-600">
-              Don't have login details? Login via{" "}
+              Dont have login details? Login via
               <Link href="/accesskey" className="text-[#2B7B78] hover:underline font-medium">
                 Accesskey
               </Link>
