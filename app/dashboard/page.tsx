@@ -3,13 +3,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Landmark, Users, Book } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 
 export default function DashboardHome() {
-  const [darkMode, setDarkMode] = useState(false);
-
- 
-
   return (
     <div className="grid gap-6 font-['Poppins'] md:grid-cols-2 lg:grid-cols-4">
       {/* Total Classes */}

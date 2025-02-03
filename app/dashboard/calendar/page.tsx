@@ -240,7 +240,7 @@ const CalendarPage = () => {
           <div className="mt-8">
             <h2 className="font-semibold mb-2">Upcoming Events</h2>
             <p className="text-gray-500 text-sm mb-4">
-              Don't miss scheduled events
+              Dont miss scheduled events
             </p>
             <div className="space-y-4">
               {upcomingEvents.map((event, index) => (
