@@ -23,7 +23,7 @@ export default function HelpPage() {
       <h1 className="text-3xl font-bold">Help Center</h1>
 
       {/* Search */}
-      <Card className="p-6">
+      {/* <Card className="p-6">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl font-semibold text-center mb-4">How can we help you?</h2>
           <div className="flex gap-2">
@@ -31,7 +31,7 @@ export default function HelpPage() {
             <Button>Search</Button>
           </div>
         </div>
-      </Card>
+      </Card> */}
 
       {/* Quick Links */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
