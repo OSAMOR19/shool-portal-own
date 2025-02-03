@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Bell, Search, Sun, Moon, QrCode, User } from "lucide-react";
 import { useState } from "react";
-import Image from "next/image";
 
 export function Header() {
   const { user, logout } = useAuth();

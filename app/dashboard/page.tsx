@@ -8,10 +8,7 @@ import { useState } from "react";
 export default function DashboardHome() {
   const [darkMode, setDarkMode] = useState(false);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
-  };
+ 
 
   return (
     <div className="grid gap-6 font-['Poppins'] md:grid-cols-2 lg:grid-cols-4">

@@ -21,7 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const CalendarPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+
 
   const eventTypes = [
     { label: "General Holiday", color: "bg-yellow-100" },
