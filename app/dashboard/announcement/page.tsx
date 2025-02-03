@@ -21,6 +21,12 @@ interface Announcement {
   isStarred: boolean;
 }
 
+type AnnouncementFormData = {
+  title: string;
+  content: string;
+  type: "regular" | "important" | "special";
+};
+
 const SuccessAlert = ({ children }: { children: React.ReactNode }) => (
   <Alert className="mb-4 bg-green-50 border-green-500">
     <AlertCircle className="h-4 w-4 text-green-500" />
@@ -63,10 +69,10 @@ export default function AnnouncementPage() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [showSuccess, setShowSuccess] = React.useState(false);
   const [filter, setFilter] = React.useState("ALL");
-  const [newAnnouncement, setNewAnnouncement] = React.useState({
+  const [newAnnouncement, setNewAnnouncement] = React.useState<AnnouncementFormData>({
     title: "",
     content: "",
-    type: "regular" as const,
+    type: "regular",
   });
   const [searchQuery, setSearchQuery] = React.useState("");
 
@@ -274,7 +280,7 @@ export default function AnnouncementPage() {
               <label className="text-sm font-medium">Type</label>
               <Select
                 value={newAnnouncement.type}
-                onValueChange={(value: "regular" | "important" | "special") =>
+                onValueChange={(value: AnnouncementFormData["type"]) =>
                   setNewAnnouncement({ ...newAnnouncement, type: value })
                 }
               >
