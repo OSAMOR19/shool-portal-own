@@ -1,5 +1,4 @@
 "use client"
-
 import { useState } from "react"
 import { Building2, Download, Printer } from "lucide-react"
 import { Card } from "@/components/ui/card"
@@ -7,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import React from "react" // Import React
 
 interface Student {
   id: number
@@ -32,17 +32,17 @@ const students: Student[] = [
   },
   {
     id: 2,
-    name: "JOHNSON DARLON",
+    name: "DOE JOHN",
     scores: {
-      maths: { ass: 49, test: 30, exam: 12 },
-      science: { ass: 49, test: 50, exam: 12 },
+      maths: { ass: 20, test: 30, exam: 12 },
+      science: { ass: 40, test: 50, exam: 12 },
       physics: { ass: 50, test: 30, exam: 50 },
       fmaths: { ass: 50, test: 12, exam: 50 },
     },
   },
   {
     id: 3,
-    name: "JOHNSON DARLON",
+    name: "PETER JONES",
     scores: {
       maths: { ass: 49, test: 30, exam: 12 },
       science: { ass: 49, test: 50, exam: 12 },
@@ -52,7 +52,7 @@ const students: Student[] = [
   },
   {
     id: 4,
-    name: "JOHNSON DARLON",
+    name: "JANE DOE",
     scores: {
       maths: { ass: 49, test: 30, exam: 12 },
       science: { ass: 49, test: 50, exam: 12 },
@@ -60,43 +60,10 @@ const students: Student[] = [
       fmaths: { ass: 50, test: 12, exam: 50 },
     },
   },
-  {
-    id: 5,
-    name: "JOHNSON DARLON",
-    scores: {
-      maths: { ass: 49, test: 30, exam: 12 },
-      science: { ass: 49, test: 50, exam: 12 },
-      physics: { ass: 50, test: 30, exam: 50 },
-      fmaths: { ass: 50, test: 12, exam: 50 },
-    },
-  },
-  {
-    id: 6,
-    name: "JOHNSON DARLON",
-    scores: {
-      maths: { ass: 49, test: 30, exam: 12 },
-      science: { ass: 49, test: 50, exam: 12 },
-      physics: { ass: 50, test: 30, exam: 50 },
-      fmaths: { ass: 50, test: 12, exam: 50 },
-    },
-  },
-  {
-    id: 7,
-    name: "JOHNSON DARLON",
-    scores: {
-      maths: { ass: 49, test: 30, exam: 12 },
-      science: { ass: 49, test: 50, exam: 12 },
-      physics: { ass: 50, test: 30, exam: 50 },
-      fmaths: { ass: 50, test: 12, exam: 50 },
-    },
-  },
-  // Add more students as needed
 ]
 
-const terms = Array.from({ length: 10 }, (_, i) => `SSS1 AUTUMN ${i + 1}`)
-
 export default function ReportPage() {
-  const [selectedTerm, setSelectedTerm] = useState("SSS1 AUTUMN")
+  const [selectedTerm, setSelectedTerm] = useState("SSS1 AUTUMN 1")
 
   return (
     <div className="min-h-screen bg-gray-50/50">
@@ -112,7 +79,7 @@ export default function ReportPage() {
           </Button>
 
           <Card className="bg-[#2A7B89] text-white p-0">
-            <RadioGroup defaultValue="SSS1 AUTUMN" className="space-y-0" onValueChange={setSelectedTerm}>
+            <RadioGroup defaultValue="SSS1 AUTUMN 1" className="space-y-0" onValueChange={setSelectedTerm}>
               {Array.from({ length: 10 }, (_, i) => (
                 <div key={i} className="flex items-center space-x-2 px-4 py-3 hover:bg-[#236873] cursor-pointer">
                   <RadioGroupItem
@@ -121,7 +88,7 @@ export default function ReportPage() {
                     className="border-white data-[state=checked]:bg-white data-[state=checked]:text-[#2A7B89]"
                   />
                   <Label htmlFor={`term-${i}`} className="text-white cursor-pointer">
-                    SSS1 AUTUMN
+                    SSS1 AUTUMN {i + 1}
                   </Label>
                 </div>
               ))}
@@ -189,20 +156,14 @@ export default function ReportPage() {
                     <td className="border-r p-2 text-center">{index + 1}</td>
                     <td className="border-r p-2">{student.name}</td>
                     {Object.values(student.scores).map((subject, i) => (
-                      <>
-                        <td key={`${student.id}-${i}-ass`} className="border-r p-2 text-center">
-                          {subject.ass}
-                        </td>
-                        <td key={`${student.id}-${i}-test`} className="border-r p-2 text-center">
-                          {subject.test}
-                        </td>
-                        <td key={`${student.id}-${i}-exam`} className="border-r p-2 text-center">
-                          {subject.exam}
-                        </td>
-                        <td key={`${student.id}-${i}-total`} className="border-r p-2 text-center font-medium">
+                      <React.Fragment key={`${student.id}-${i}`}>
+                        <td className="border-r p-2 text-center">{subject.ass}</td>
+                        <td className="border-r p-2 text-center">{subject.test}</td>
+                        <td className="border-r p-2 text-center">{subject.exam}</td>
+                        <td className="border-r p-2 text-center font-medium">
                           {subject.ass + subject.test + subject.exam}
                         </td>
-                      </>
+                      </React.Fragment>
                     ))}
                   </tr>
                 ))}
@@ -219,6 +180,8 @@ export default function ReportPage() {
           </div>
         </div>
       </div>
+      {/* Display selected term (you can remove this if not needed) */}
+      <div className="mt-4 text-center">Selected Term: {selectedTerm}</div>
     </div>
   )
 }
