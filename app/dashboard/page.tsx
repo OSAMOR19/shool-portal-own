@@ -232,28 +232,28 @@ export default function Dashboard() {
         <MetricCard
           title="Total Number of Classes"
           value={15}
-          viewAllLink="/classes"
+          viewAllLink="/dashboard/classes"
           icon={Building2}
           iconClassName="bg-yellow-100"
         />
         <MetricCard
           title="Total Number of Subjects"
           value={50}
-          viewAllLink="/subjects"
+          viewAllLink="/dashboard/subjects"
           icon={BookOpen}
           iconClassName="bg-teal-100"
         />
         <MetricCard
           title="Total Number of Staff"
           value={35}
-          viewAllLink="/staff"
+          viewAllLink="/dashboard/staff"
           icon={GraduationCap}
           iconClassName="bg-yellow-100"
         />
         <MetricCard
           title="Total Number of Students"
           value={350}
-          viewAllLink="/students"
+          viewAllLink="/dashboard/students"
           icon={Users}
           iconClassName="bg-red-100"
         />
