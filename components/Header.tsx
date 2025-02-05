@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export function Header() {
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [_isFullscreen, setIsFullscreen] = useState(false);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -52,7 +52,7 @@ export function Header() {
             </PopoverTrigger>
             <PopoverContent className="w-64 p-2">
               <p className="text-sm font-medium">New message from Admin</p>
-              <p className="text-xs text-gray-500">"Please review the latest report."</p>
+              <p className="text-xs text-gray-500">"Please review the latest report"</p>
             </PopoverContent>
           </Popover>
 
@@ -66,7 +66,7 @@ export function Header() {
             </PopoverTrigger>
             <PopoverContent className="w-64 p-2">
               <p className="text-sm font-medium">Notification: System Update</p>
-              <p className="text-xs text-gray-500">"Your system was updated successfully."</p>
+              <p className="text-xs text-gray-500">"Your system was updated successfully"</p>
             </PopoverContent>
           </Popover>
 

@@ -1,30 +1,43 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Settings2, PenSquare } from "lucide-react"
-import Image from "next/image"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Settings2, PenSquare } from "lucide-react";
+import Image from "next/image";
 
 // Import avatars
-import Avt1 from "@/components/images/avt1.png"
-import Avt2 from "@/components/images/avt2.png"
-import Avt3 from "@/components/images/avt3.png"
-import Avt4 from "@/components/images/avt4.png"
-import Avt5 from "@/components/images/avt5.png"
-import Avt6 from "@/components/images/avt6.png"
+import Avt1 from "@/components/images/avt1.png";
+import Avt2 from "@/components/images/avt2.png";
+import Avt3 from "@/components/images/avt3.png";
+import Avt4 from "@/components/images/avt4.png";
+import Avt5 from "@/components/images/avt5.png";
+import Avt6 from "@/components/images/avt6.png";
+import { StaticImageData } from "next/image";
 
 interface Class {
-  id: string
-  name: string
-  level: string
-  teacher: string
-  teacherAvatar: any
-  students: number
+  id: string;
+  name: string;
+  level: string;
+  teacher: string;
+  teacherAvatar: StaticImageData; // Updated type
+  students: number;
 }
 
 const initialClasses: Class[] = [
@@ -92,18 +105,18 @@ const initialClasses: Class[] = [
     teacherAvatar: Avt2,
     students: 30,
   },
-]
+];
 
 export default function ClassesPage() {
-  const [classes] = useState(initialClasses)
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedGroup, setSelectedGroup] = useState<string>("")
+  const [classes] = useState(initialClasses);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState<string>("");
 
   const filteredClasses = classes.filter(
     (cls) =>
       cls.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      cls.level.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+      cls.level.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="p-6">
@@ -168,7 +181,9 @@ export default function ClassesPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <Button className="bg-[#2A877E] hover:bg-[#236b63]">Add Group</Button>
+                  <Button className="bg-[#2A877E] hover:bg-[#236b63]">
+                    Add Group
+                  </Button>
                 </div>
               </DialogContent>
             </Dialog>
@@ -198,7 +213,9 @@ export default function ClassesPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <Button className="bg-[#2A877E] hover:bg-[#236b63]">Add Class</Button>
+                  <Button className="bg-[#2A877E] hover:bg-[#236b63]">
+                    Add Class
+                  </Button>
                 </div>
               </DialogContent>
             </Dialog>
@@ -208,7 +225,11 @@ export default function ClassesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {filteredClasses.map((cls) => (
             <Card key={cls.id} className="relative bg-white">
-              <Button variant="ghost" size="icon" className="absolute right-2 top-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-2 top-2"
+              >
                 <PenSquare className="h-4 w-4 text-[#2A877E]" />
               </Button>
               <CardContent className="pt-6">
@@ -222,14 +243,16 @@ export default function ClassesPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Image
-                      src={cls.teacherAvatar || "/placeholder.svg"}
+                      src={cls.teacherAvatar || "/placeholder.svg"} // Fallback to a placeholder image
                       alt={cls.teacher}
                       width={24}
                       height={24}
                       className="rounded-full"
                     />
                     <span className="text-sm">{cls.teacher}</span>
-                    <span className="text-sm text-muted-foreground ml-4">{cls.students} Students</span>
+                    <span className="text-sm text-muted-foreground ml-4">
+                      {cls.students} Students
+                    </span>
                   </div>
                   <Button variant="secondary" className="w-full mt-2">
                     View Class
@@ -241,6 +264,5 @@ export default function ClassesPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
