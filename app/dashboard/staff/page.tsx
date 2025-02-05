@@ -1,11 +1,11 @@
 "use client"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Star, Users, MoreVertical, PlusCircle } from "lucide-react"
+import { Star, Users, MoreVertical, PlusCircle, X } from "lucide-react"
 import Image from "next/image"
 
 // Import avatars
@@ -86,11 +86,13 @@ const initialStaff: StaffMember[] = [
 export default function StaffPage() {
   const [staff, setStaff] = useState(initialStaff)
   const [searchQuery, setSearchQuery] = useState("")
+  const [isAddStaffOpen, setIsAddStaffOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState("Personal Details")
 
   const filteredStaff = staff.filter(
     (member) =>
       member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.subject.toLowerCase().includes(searchQuery.toLowerCase()),
+      member.subject.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
   const toggleFavorite = (id: number) => {
@@ -106,16 +108,74 @@ export default function StaffPage() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold">All STAFF</h1>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon">
+          <Button variant="outline" size="icon" className="bg-teal-600 text-white hover:bg-teal-700">
             <Users className="h-4 w-4" />
           </Button>
-          <Button variant="outline" size="icon">
+          <Button variant="outline" size="icon" className="border-teal-600 text-teal-600 hover:bg-teal-50">
             <Star className="h-4 w-4" />
           </Button>
-          <Button>
-            <PlusCircle className="h-4 w-4 mr-2" />
-            Add Staff
-          </Button>
+          <Dialog open={isAddStaffOpen} onOpenChange={setIsAddStaffOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-teal-600 hover:bg-teal-700">
+                <PlusCircle className="h-4 w-4 mr-2" />
+                Add Staff
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[600px]">
+              <DialogHeader>
+                <div className="flex justify-between items-center">
+                  <DialogTitle>Add Staff</DialogTitle>
+                  <Button variant="ghost" size="icon" onClick={() => setIsAddStaffOpen(false)}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              </DialogHeader>
+              <div className="border-b">
+                <div className="flex gap-4">
+                  <button
+                    className={`px-4 py-2 ${activeTab === "Personal Details" ? "border-b-2 border-teal-600" : ""}`}
+                    onClick={() => setActiveTab("Personal Details")}
+                  >
+                    Personal Details
+                  </button>
+                  <button
+                    className={`px-4 py-2 ${activeTab === "Bank Details" ? "border-b-2 border-teal-600" : ""}`}
+                    onClick={() => setActiveTab("Bank Details")}
+                  >
+                    Bank Details
+                  </button>
+                </div>
+              </div>
+              {activeTab === "Personal Details" ? (
+                <div className="grid grid-cols-2 gap-4 p-4">
+                  <Input placeholder="Enter first name" />
+                  <Input placeholder="Enter last name" />
+                  <Input placeholder="Enter email address" />
+                  <Input placeholder="Enter phone number" />
+                  <Input placeholder="Enter date of birth" />
+                  <Input placeholder="Select Subject" />
+                  <Input placeholder="Others" />
+                  <Input placeholder="Select Class" />
+                  <Input placeholder="Enter staff's position" />
+                  <div className="flex justify-between items-center">
+                    <span>Browse...</span>
+                    <span className="text-gray-500">No file selected.</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-4 p-4">
+                  <Input placeholder="Enter bank name" />
+                  <Input placeholder="Enter account number" />
+                  <Input placeholder="Enter account holder name" />
+                  <Input placeholder="Enter amount" />
+                </div>
+              )}
+              <div className="flex justify-end gap-2 p-4">
+                <Button variant="outline" onClick={() => setIsAddStaffOpen(false)}>Close</Button>
+                <Button className="bg-teal-600 hover:bg-teal-700">Save</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
@@ -128,13 +188,13 @@ export default function StaffPage() {
         />
       </div>
 
-      <Card>
-        <div className="divide-y">
-          {filteredStaff.map((member) => (
-            <div key={member.id} className="flex items-center justify-between p-4 hover:bg-muted/50">
+      <div className="space-y-4">
+        {filteredStaff.map((member) => (
+          <Card key={member.id} className="bg-white shadow-sm">
+            <div className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg">
               <div className="flex items-center gap-4">
                 <Image
-                  src={member.avatar || "/placeholder.svg"}
+                  src={member.avatar}
                   alt={member.name}
                   className="rounded-full"
                   width={48}
@@ -142,18 +202,18 @@ export default function StaffPage() {
                 />
                 <div>
                   <h3 className="font-medium">{member.name}</h3>
-                  <p className="text-sm text-muted-foreground">{member.role}</p>
+                  <p className="text-sm text-gray-500">{member.role}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4">
                 <div className="min-w-[200px]">
-                  <p className="text-sm text-muted-foreground">{member.type}</p>
+                  <p className="text-sm text-gray-500">{member.type}</p>
                   <p>{member.subject}</p>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <Button variant="secondary" size="sm">
+                  <Button variant="secondary" size="sm" className="bg-teal-600 text-white hover:bg-teal-700">
                     View Profile
                   </Button>
                   <Button variant="ghost" size="icon" onClick={() => toggleFavorite(member.id)}>
@@ -167,7 +227,7 @@ export default function StaffPage() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem className="text-destructive" onClick={() => deleteStaff(member.id)}>
+                      <DropdownMenuItem className="text-red-600" onClick={() => deleteStaff(member.id)}>
                         Delete
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -175,10 +235,9 @@ export default function StaffPage() {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </Card>
+          </Card>
+        ))}
+      </div>
     </div>
   )
 }
-
