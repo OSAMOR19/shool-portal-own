@@ -254,7 +254,7 @@ export default function ClassesPage() {
                       {cls.students} Students
                     </span>
                   </div>
-                  <Button variant="secondary" className="w-full mt-2">
+                  <Button variant="secondary"  className="w-full mt-2">
                     View Class
                   </Button>
                 </div>
